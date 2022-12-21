@@ -17,6 +17,7 @@ export const Content = styled(Dialog.Content, {
   minWidth: 480,
   padding: '3rem',
   paddingTop: '4.5rem',
+  boxShadow: '-4px 0 30px rgba(0,0,0,0.8)',
 
   backgroundColor: '$gray800',
 
@@ -24,7 +25,7 @@ export const Content = styled(Dialog.Content, {
   flexDirection: 'column',
   justifyContent: 'space-between',
 
-  main: {
+  section: {
     display: 'flex',
     flexDirection: 'column',
     gap: '2rem',
@@ -80,7 +81,13 @@ export const Content = styled(Dialog.Content, {
       border: 0,
       paddingBlock: '1.25rem',
       borderRadius: 8,
-      fontSize: '$md'
+      fontSize: '$md',
+      cursor: 'pointer',
+
+      '&:not(:disabled):hover': {
+        background: '$green300',
+        transition: 'all 0.2s ease'
+      }
     }
   }
 })
@@ -95,7 +102,12 @@ export const Close = styled(Dialog.Close, {
   cursor: 'pointer',
 
   svg: {
-    color: '$gray700'
+    color: '$gray700',
+    transition: 'color 0.2s ease',
+
+    '&:not(:disabled):hover': {
+      color: '$gray300',
+    }
   }
 })
 
@@ -152,7 +164,7 @@ export const ProductWrapper = styled('div', {
       lineHeight: 1.6
     },
 
-    'button:hover': {
+    'button:not(:disabled):hover': {
       color: '$green300',
     }
   }

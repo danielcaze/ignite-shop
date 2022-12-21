@@ -32,7 +32,7 @@ export const SuccessContainer = styled('main', {
     textDecoration: 'none',
     fontWeight: 'bold',
 
-    '&:hover': {
+    '&:not(:disabled):hover': {
       color: '$green300'
     }
   }

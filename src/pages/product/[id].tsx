@@ -2,40 +2,41 @@ import axios from "axios";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { ParsedUrlQuery } from "querystring";
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import Stripe from "stripe";
+import { IProduct } from "../../contexts/CartContext";
+import { useCart } from "../../hooks/useCart";
 import { stripe } from "../../lib/stripe";
 import { ImageContainer, ProductContaienr, ProductDetails } from "../../styles/pages/product";
 
 interface ProductProps {
-  product: {
-    id: string,
-    name: string,
-    imageUrl: string,
-    price: string,
-    description: string
-    defaultPriceId: string
-  }
+  product: IProduct
 }
 
 export default function Product({ product }: ProductProps) {
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+  const { addToCart, checkIfItemAlreadyExists } = useCart()
+  const cartHasThisItem = checkIfItemAlreadyExists(product.id)
 
-  async function handleBuyProduct() {
-    try {
-      setIsCreatingCheckoutSession(true)
-      const { data } = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId
-      })
-      const { checkoutUrl } = data
+  // async function handleBuyProduct() {
+  //   try {
+  //     setIsCreatingCheckoutSession(true)
+  //     const { data } = await axios.post('/api/checkout', {
+  //       priceId: product.defaultPriceId
+  //     })
+  //     const { checkoutUrl } = data
 
-      window.location.href = checkoutUrl
-    } catch (error) {
-      // conectar com uma ferramenta de observabilidade (datadog, sentry)
-      setIsCreatingCheckoutSession(false)
-      alert('Failed to redirect')
-    }
+  //     window.location.href = checkoutUrl
+  //   } catch (error) {
+  //     // conectar com uma ferramenta de observabilidade (datadog, sentry)
+  //     setIsCreatingCheckoutSession(false)
+  //     alert('Failed to redirect')
+  //   }
+  // }
+
+  function handleAddToCart(e: MouseEvent<HTMLButtonElement>, product: IProduct) {
+    e.preventDefault()
+    addToCart(product)
   }
 
   return (
@@ -53,7 +54,12 @@ export default function Product({ product }: ProductProps) {
 
           <p>{product.description}</p>
 
-          <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>Comprar agora</button>
+          <button
+            disabled={cartHasThisItem}
+            onClick={(e) => handleAddToCart(e, product)}
+          >
+            {cartHasThisItem ? 'Item já está na sacola' : 'Adicionar na sacola'}
+          </button>
         </ProductDetails>
       </ProductContaienr>
     </>
@@ -91,7 +97,8 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ para
           currency: 'BRL'
         }).format(price.unit_amount as number / 100),
         description: product.description,
-        defaultPriceId: price.id,
+        numberPrice: price.unit_amount as number / 100,
+        defaultPriceId: price.id
       }
     },
     revalidate

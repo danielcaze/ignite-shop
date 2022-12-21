@@ -45,16 +45,25 @@ export const Product = styled(Link, {
     opacity: 0,
     transition: 'all 0.2s ease-in-out',
 
-    strong: {
-      fontSize: '$lg',
-      color: '$gray100'
-    },
+    div: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.25rem',
 
-    span: {
-      fontSize: '$xl',
-      fontWeight: 'bold',
-      color: '$green300'
-    }
+      strong: {
+        fontSize: '$lg',
+        color: '$gray100',
+        maxWidth: 290,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+      },
+
+      span: {
+        fontSize: '$xl',
+        fontWeight: 'bold',
+        color: '$green300'
+      },
+    },
   },
 
   '&:hover': {

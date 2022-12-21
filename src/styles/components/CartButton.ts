@@ -2,12 +2,51 @@ import { styled } from "..";
 
 export const CartButtonContainer = styled('button', {
   padding: '0.75rem',
-  backgroundColor: '$gray800',
   border: 0,
   borderRadius: 6,
   cursor: 'pointer',
 
-  svg: {
-    color: '$gray700',
+  '&:disabled': {
+    cursor: 'not-allowed'
+  },
+
+  variants: {
+    color: {
+      gray: {
+        background: '$gray800',
+        color: '$gray500'
+      },
+      green: {
+        background: '$green500',
+        color: '$white',
+
+        '&:not(:disabled):hover': {
+          backgroundColor: '$green300',
+        }
+      }
+    },
+    size: {
+      medium: {
+        width: '3rem',
+        height: '3rem',
+
+        svg: {
+          fontSize: 24
+        }
+      },
+      large: {
+        width: "3.5rem",
+        height: '3.5rem',
+
+        svg: {
+          fontSize: 32
+        }
+      }
+    }
+  },
+
+  defaultVariants: {
+    color: 'gray',
+    size: 'medium'
   }
 })
