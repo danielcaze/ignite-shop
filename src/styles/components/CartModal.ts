@@ -14,7 +14,7 @@ export const Content = styled(Dialog.Content, {
   right: 0,
   top: 0,
   height: '100vh',
-  minWidth: 480,
+  maxWidth: '100vh',
   padding: '3rem',
   paddingTop: '4.5rem',
   boxShadow: '-4px 0 30px rgba(0,0,0,0.8)',
@@ -89,6 +89,10 @@ export const Content = styled(Dialog.Content, {
         transition: 'all 0.2s ease'
       }
     }
+  },
+
+  '@phone': {
+    width: '100%',
   }
 })
 
@@ -142,7 +146,13 @@ export const ProductWrapper = styled('div', {
       p: {
         fontSize: '$md',
         color: '$gray300',
-        lineHeight: 1.6
+        lineHeight: 1.6,
+
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        display: '-webkit-box',
+        '-webkit-box-orient': 'vertical',
+        '-webkit-line-clamp': 1,
       },
 
       span: {
@@ -161,16 +171,18 @@ export const ProductWrapper = styled('div', {
       fontWeight: 'bold',
       alignSelf: 'flex-start',
       cursor: 'pointer',
-      lineHeight: 1.6
+      lineHeight: 1.6,
+
+      '&:not(:disabled):hover': {
+        color: '$green300'
+      },
+
+      '&:disabled': {
+        opacity: 0.6,
+        cursor: 'not-allowed'
+      }
     },
 
-    '&:not(:disabled):hover': {
-      backgroundColor: '$green300'
-    },
 
-    '&:disabled': {
-      opacity: 0.6,
-      cursor: 'not-allowed'
-    }
   }
 })

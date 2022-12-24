@@ -38,6 +38,7 @@ export const SuccessContainer = styled('main', {
   },
 
   section: {
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -64,7 +65,8 @@ export const ImageContainer = styled('div', {
   justifyContent: 'center',
 
   img: {
-    objectFit: 'cover'
+    objectFit: 'cover',
+    width: '100%',
   },
 
   variants: {
@@ -77,7 +79,7 @@ export const ImageContainer = styled('div', {
         borderRadius: '50%',
         boxShadow: "0px 0px 60px rgba(0, 0, 0, 0.8)",
         position: "relative",
-        width: 140,
+        width: '100%',
         maxWidth: 140,
         height: 140,
       }

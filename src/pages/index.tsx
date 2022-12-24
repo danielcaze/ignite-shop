@@ -19,10 +19,18 @@ interface HomeProps {
 export default function Home({ products }: HomeProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [sliderRef] = useKeenSlider({
+    breakpoints: {
+      "(max-width: 1024px)": {
+        slides: { perView: 2, spacing: 48 },
+      },
+      "(max-width: 648px)": {
+        slides: { perView: 1, spacing: 40 },
+      },
+    },
     slides: {
       perView: 3,
       spacing: 48
-    }
+    },
   })
 
   const { addToCart, checkIfItemAlreadyExists } = useCart()
@@ -43,11 +51,11 @@ export default function Home({ products }: HomeProps) {
         <title>Home | Ignite Shop</title>
       </Head>
 
-      {
+      {/* {
         isLoading ? (
-          <>
-            <SkeletonHomeScreen size={3} />
-          </>
+          <> */}
+      <SkeletonHomeScreen size={3} />
+      {/* </>
         ) : (
           <HomeContainer ref={sliderRef} className="keen-slider">
             {products.map(product => {
@@ -66,7 +74,7 @@ export default function Home({ products }: HomeProps) {
             })}
           </HomeContainer>
         )
-      }
+      } */}
 
 
     </>

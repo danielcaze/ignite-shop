@@ -2,7 +2,9 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import Stripe from "stripe";
+import { useCart } from "../hooks/useCart";
 import { stripe } from "../lib/stripe";
 import { ImageContainer, SuccessContainer } from "../styles/pages/success";
 
@@ -15,7 +17,13 @@ interface SuccessProps {
 }
 
 export default function Success({ customerName, products }: SuccessProps) {
+  const { clearCart } = useCart()
+
   const hasOnlyOneItem = products.length === 1
+
+  useEffect(() => {
+    clearCart()
+  }, [])
 
   return (
     <>
@@ -25,8 +33,6 @@ export default function Success({ customerName, products }: SuccessProps) {
       </Head>
 
       <SuccessContainer>
-
-
         {
           hasOnlyOneItem ? (
             <>
@@ -39,7 +45,6 @@ export default function Success({ customerName, products }: SuccessProps) {
             </>
           ) : (
             <>
-
               <section>
                 {
                   products.map(product => (

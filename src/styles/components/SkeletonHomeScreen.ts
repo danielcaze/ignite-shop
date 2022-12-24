@@ -13,14 +13,16 @@ export const SkeletonHomeScreenContainer = styled('div', {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
+  gap: 48,
 
   width: '100%',
   maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
   marginLeft: 'auto',
-  minHeight: 656
+  minHeight: 656,
 })
 
 export const SkeletonHomeScreenContent = styled('div', {
+  width: '100%',
   display: 'grid',
   gridTemplateRows: '600px 32px',
   gap: 24,
@@ -30,6 +32,21 @@ export const SkeletonHomeScreenContent = styled('div', {
     gridTemplateColumns: 'minmax(0, 330px) minmax(0, 100px)',
     gap: '0.5rem',
     justifyContent: 'space-between',
+  },
+
+  '@tablet': {
+    '&:not(:first-child)': {
+      display: 'none'
+    },
+    '&:nth-child(2)': {
+      display: 'grid'
+    }
+  },
+
+  '@phone': {
+    '&:nth-child(2)': {
+      display: 'none'
+    }
   }
 })
 

@@ -6,5 +6,10 @@ export const Container = styled('div', {
   alignItems: 'flex-start',
   justifyContent: 'center',
   minHeight: '100vh',
-  overflow: 'hidden'
+  overflow: 'hidden',
+  paddingInline: '1rem',
+
+  '@tablet': {
+    justifyContent: 'flex-start',
+  }
 })

@@ -6,7 +6,7 @@ type SkeletonHomeScreenProps = ComponentProps<typeof SkeletonHomeScreenContainer
 }
 
 export default function SkeletonHomeScreen({ size, ...rest }: SkeletonHomeScreenProps) {
-  const arraySize = new Array(size).fill(0).map((item, index) => item + index)
+  const arraySize = new Array(size).fill(0).map((item, index) => item + index);
   return (
     <SkeletonHomeScreenContainer>
       {

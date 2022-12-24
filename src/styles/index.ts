@@ -28,6 +28,10 @@ export const {
       lg: '1.25rem',
       xl: '1.5rem',
       '2xl': '2rem'
-    }
+    },
+  },
+  media: {
+    phone: '(max-width: 648px)',
+    tablet: '(max-width: 1024px)',
   }
 })
