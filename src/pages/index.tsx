@@ -51,11 +51,11 @@ export default function Home({ products }: HomeProps) {
         <title>Home | Ignite Shop</title>
       </Head>
 
-      {/* {
+      {
         isLoading ? (
-          <> */}
-      <SkeletonHomeScreen size={3} />
-      {/* </>
+          <>
+            <SkeletonHomeScreen size={3} />
+          </>
         ) : (
           <HomeContainer ref={sliderRef} className="keen-slider">
             {products.map(product => {
@@ -74,7 +74,7 @@ export default function Home({ products }: HomeProps) {
             })}
           </HomeContainer>
         )
-      } */}
+      }
 
 
     </>
