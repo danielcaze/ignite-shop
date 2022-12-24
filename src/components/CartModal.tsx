@@ -4,16 +4,35 @@ import logoImg from '../assets/logo.svg'
 import { X } from 'phosphor-react'
 import { Overlay, Content, Close, ProductWrapper, ProductList } from "../styles/components/CartModal";
 import { useCart } from "../hooks/useCart";
+import { useState } from "react";
+import axios from "axios";
 
 export function CartModal() {
+  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
   const { cart, cartTotal, removeFromCart } = useCart()
   const cartQuantity = cart.length
+  const pricesId = cart.map(item => item.defaultPriceId)
 
   const formattedCartTotal = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL'
   }).format(cartTotal)
 
+  async function handleBuyProducts() {
+    try {
+      setIsCreatingCheckoutSession(true)
+      const { data } = await axios.post('/api/checkout', {
+        pricesId
+      })
+      const { checkoutUrl } = data
+
+      window.location.href = checkoutUrl
+    } catch (error) {
+      // conectar com uma ferramenta de observabilidade (datadog, sentry)
+      setIsCreatingCheckoutSession(false)
+      alert('Failed to redirect')
+    }
+  }
   return (
     <Dialog.Portal>
       <Overlay />
@@ -59,7 +78,7 @@ export function CartModal() {
                   <span>{formattedCartTotal}</span>
                 </div>
               </div>
-              <button>Finalizar compra</button>
+              <button disabled={isCreatingCheckoutSession} onClick={handleBuyProducts}>Finalizar compra</button>
             </footer>
           )
         }

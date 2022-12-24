@@ -8,6 +8,7 @@ export interface IProduct {
   numberPrice: number
   description: string
   defaultPrice: string
+  defaultPriceId: string
 }
 
 interface CartContextProps {

@@ -35,6 +35,20 @@ export const SuccessContainer = styled('main', {
     '&:not(:disabled):hover': {
       color: '$green300'
     }
+  },
+
+  section: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    'div + div': {
+      marginLeft: 'calc(140px / -3)',
+    },
+
+    '& + h1': {
+      marginTop: '4rem',
+    }
   }
 })
 
@@ -43,9 +57,7 @@ export const ImageContainer = styled('div', {
   maxWidth: 130,
   height: 145,
   background: 'linear-gradient(100deg, #1ea483 0%, #7455d4 100%)',
-  borderRadius: 8,
   padding: '0.25rem',
-  marginTop: '4rem',
 
   display: 'flex',
   alignItems: 'center',
@@ -53,5 +65,26 @@ export const ImageContainer = styled('div', {
 
   img: {
     objectFit: 'cover'
+  },
+
+  variants: {
+    quantity: {
+      one: {
+        borderRadius: 8,
+        marginTop: '4rem',
+      },
+      multiple: {
+        borderRadius: '50%',
+        boxShadow: "0px 0px 60px rgba(0, 0, 0, 0.8)",
+        position: "relative",
+        width: 140,
+        maxWidth: 140,
+        height: 140,
+      }
+    }
+  },
+
+  defaultVariants: {
+    quantity: 'one'
   }
 })

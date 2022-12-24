@@ -18,6 +18,17 @@ export const globalStyles = globalCss({
     fontWeight: 400
   },
 
+  '::-webkit-scrollbar': {
+    width: 7,
+  },
+  '::-webkit-scrollbar-track': {
+    background: '$gray800',
+  },
+  '::-webkit-scrollbar-thumb': {
+    background: '$green300',
+    borderRadius: 5,
+  },
+
   a: {
     color: 'inherit'
   },

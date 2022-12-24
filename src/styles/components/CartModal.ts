@@ -164,8 +164,13 @@ export const ProductWrapper = styled('div', {
       lineHeight: 1.6
     },
 
-    'button:not(:disabled):hover': {
-      color: '$green300',
+    '&:not(:disabled):hover': {
+      backgroundColor: '$green300'
+    },
+
+    '&:disabled': {
+      opacity: 0.6,
+      cursor: 'not-allowed'
     }
   }
 })

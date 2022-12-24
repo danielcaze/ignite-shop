@@ -14,25 +14,8 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
-  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
   const { addToCart, checkIfItemAlreadyExists } = useCart()
   const cartHasThisItem = checkIfItemAlreadyExists(product.id)
-
-  // async function handleBuyProduct() {
-  //   try {
-  //     setIsCreatingCheckoutSession(true)
-  //     const { data } = await axios.post('/api/checkout', {
-  //       priceId: product.defaultPriceId
-  //     })
-  //     const { checkoutUrl } = data
-
-  //     window.location.href = checkoutUrl
-  //   } catch (error) {
-  //     // conectar com uma ferramenta de observabilidade (datadog, sentry)
-  //     setIsCreatingCheckoutSession(false)
-  //     alert('Failed to redirect')
-  //   }
-  // }
 
   function handleAddToCart(e: MouseEvent<HTMLButtonElement>, product: IProduct) {
     e.preventDefault()
