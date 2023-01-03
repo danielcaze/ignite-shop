@@ -16,7 +16,7 @@ export const HomeContainer = styled('main', {
     fontSize: '2rem',
 
     height: '100%',
-    width: '3%',
+    width: 'max(30px, 3%)',
     background: 'linear-gradient(270deg,#12121400 0%, #121214ff 150%)',
     border: 0,
     transition: 'all 0.2s',

@@ -14,6 +14,7 @@ export const Content = styled(Dialog.Content, {
   right: 0,
   top: 0,
   height: '100vh',
+  width: 480,
   maxWidth: '100vh',
   padding: '3rem',
   paddingTop: '4.5rem',
