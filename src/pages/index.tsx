@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useKeenSlider } from 'keen-slider/react'
-import { ButtonsContainer, HomeContainer, Product } from "../styles/pages/home";
+import { HomeContainer, Product } from "../styles/pages/home";
 import 'keen-slider/keen-slider.min.css'
 import { stripe } from "../lib/stripe";
 import { GetStaticProps } from "next";
@@ -38,6 +38,7 @@ export default function Home({ products }: HomeProps) {
       spacing: 48
     },
     created(slider) {
+      // @ts-ignore
       setSlidesPerPage(slider.options.slides!.perView)
     }
   })
@@ -55,10 +56,11 @@ export default function Home({ products }: HomeProps) {
   }
 
   useEffect(() => {
+    // @ts-ignore
     window.addEventListener('resize', () => setSlidesPerPage(instanceRef.current?.options.slides?.perView))
-
+    // @ts-ignore
     return () => window.removeEventListener('resize', () => setSlidesPerPage(instanceRef.current?.options.slides?.perView))
-  }, [currentSlide])
+  }, [instanceRef])
 
   return (
     <>
