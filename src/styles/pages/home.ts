@@ -3,11 +3,33 @@ import { styled } from "..";
 
 export const HomeContainer = styled('main', {
   display: 'flex',
+  position: 'relative',
 
   width: '100%',
   maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
   marginLeft: 'auto',
-  minHeight: 656
+  minHeight: 656,
+
+  '& > button': {
+    position: 'absolute',
+    color: '$white',
+    fontSize: '2rem',
+
+    height: '100%',
+    width: '3%',
+    background: 'linear-gradient(270deg,#12121400 0%, #121214ff 150%)',
+    border: 0,
+    transition: 'all 0.2s',
+
+    '&:hover': {
+      fontSize: '3rem',
+    },
+
+    '&.next': {
+      right: 0,
+      background: 'linear-gradient(270deg,#121214ff -50%, #12121400 100%)',
+    },
+  },
 })
 
 export const Product = styled(Link, {
@@ -66,6 +88,13 @@ export const Product = styled(Link, {
   },
 
   '&:hover': {
+    footer: {
+      transform: 'translateY(0%)',
+      opacity: 1
+    }
+  },
+
+  '@tablet': {
     footer: {
       transform: 'translateY(0%)',
       opacity: 1

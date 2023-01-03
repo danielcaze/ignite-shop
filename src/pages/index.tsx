@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useKeenSlider } from 'keen-slider/react'
-import { HomeContainer, Product } from "../styles/pages/home";
+import { ButtonsContainer, HomeContainer, Product } from "../styles/pages/home";
 import 'keen-slider/keen-slider.min.css'
 import { stripe } from "../lib/stripe";
 import { GetStaticProps } from "next";
@@ -18,7 +18,13 @@ interface HomeProps {
 
 export default function Home({ products }: HomeProps) {
   const [isLoading, setIsLoading] = useState(true)
-  const [sliderRef] = useKeenSlider({
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [slidesPerPage, setSlidesPerPage] = useState(3)
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
+    initial: 0,
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel)
+    },
     breakpoints: {
       "(max-width: 1024px)": {
         slides: { perView: 2, spacing: 48 },
@@ -31,6 +37,9 @@ export default function Home({ products }: HomeProps) {
       perView: 3,
       spacing: 48
     },
+    created(slider) {
+      setSlidesPerPage(slider.options.slides!.perView)
+    }
   })
 
   const { addToCart, checkIfItemAlreadyExists } = useCart()
@@ -45,6 +54,12 @@ export default function Home({ products }: HomeProps) {
     addToCart(product)
   }
 
+  useEffect(() => {
+    window.addEventListener('resize', () => setSlidesPerPage(instanceRef.current?.options.slides?.perView))
+
+    return () => window.removeEventListener('resize', () => setSlidesPerPage(instanceRef.current?.options.slides?.perView))
+  }, [currentSlide])
+
   return (
     <>
       <Head>
@@ -58,20 +73,37 @@ export default function Home({ products }: HomeProps) {
           </>
         ) : (
           <HomeContainer ref={sliderRef} className="keen-slider">
-            {products.map(product => {
-              return (
-                <Product key={product.id} href={`/product/${product.id}`} prefetch={false} className="keen-slider__slide">
-                  <Image src={product.imageUrl} width={520} height={480} alt="" />
-                  <footer>
-                    <div>
-                      <strong>{product.name}</strong>
-                      <span>{product.price}</span>
-                    </div>
-                    <CartButton color='green' size='large' onClick={(e) => handleAddToCart(e, product)} disabled={checkIfItemAlreadyExists(product.id)} />
-                  </footer>
-                </Product>
+            {products.map(product => (
+              <Product key={product.id} href={`/product/${product.id}`} prefetch={false} className="keen-slider__slide">
+                <Image src={product.imageUrl} width={520} height={480} alt="" />
+                <footer>
+                  <div>
+                    <strong>{product.name}</strong>
+                    <span>{product.price}</span>
+                  </div>
+                  <CartButton color='green' size='large' onClick={(e) => handleAddToCart(e, product)} disabled={checkIfItemAlreadyExists(product.id)} />
+                </footer>
+              </Product>
+            )
+            )}
+            {
+              currentSlide !== 0 && (
+                <button
+                  className="prev"
+                  onClick={(e: any) => e.stopPropagation() || instanceRef.current?.prev()}
+                  disabled={currentSlide === 0}
+                >&lt;</button>
               )
-            })}
+            }
+            {
+              products.length - slidesPerPage !== currentSlide && (
+                <button
+                  className="next"
+                  onClick={(e: any) => e.stopPropagation() || instanceRef.current?.next()}
+                  disabled={currentSlide === products.length - 1}
+                >&gt;</button>
+              )
+            }
           </HomeContainer>
         )
       }
