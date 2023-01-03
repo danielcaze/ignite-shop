@@ -1,9 +1,9 @@
-import axios from "axios";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { MouseEvent, useState } from "react";
 import Stripe from "stripe";
+import { AddedToCartPopUp } from "../../components/AddedToCartPopUp";
 import { IProduct } from "../../contexts/CartContext";
 import { useCart } from "../../hooks/useCart";
 import { stripe } from "../../lib/stripe";
@@ -14,12 +14,19 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
+  const [showAddToCart, setShowAddToCart] = useState(false)
   const { addToCart, checkIfItemAlreadyExists } = useCart()
   const cartHasThisItem = checkIfItemAlreadyExists(product.id)
 
   function handleAddToCart(e: MouseEvent<HTMLButtonElement>, product: IProduct) {
     e.preventDefault()
     addToCart(product)
+    toggleShowCart()
+  }
+
+  function toggleShowCart() {
+    setShowAddToCart(true)
+    setTimeout(() => setShowAddToCart(false), 2000)
   }
 
   return (
@@ -27,6 +34,7 @@ export default function Product({ product }: ProductProps) {
       <Head>
         <title>Produto | {product.name}</title>
       </Head>
+      <AddedToCartPopUp className={`${showAddToCart ? 'show' : ''}`} />
       <ProductContaienr>
         <ImageContainer>
           <Image src={product.imageUrl} width={520} height={480} alt="" />

@@ -11,6 +11,7 @@ import { useCart } from "../hooks/useCart";
 import { IProduct } from "../contexts/CartContext";
 import { MouseEvent, useEffect, useState } from "react";
 import SkeletonHomeScreen from "../components/SkeletonHomeScreen";
+import { AddedToCartPopUp } from "../components/AddedToCartPopUp";
 
 interface HomeProps {
   products: IProduct[]
@@ -18,6 +19,7 @@ interface HomeProps {
 
 export default function Home({ products }: HomeProps) {
   const [isLoading, setIsLoading] = useState(true)
+  const [showAddToCart, setShowAddToCart] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
   const [slidesPerPage, setSlidesPerPage] = useState(3)
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
@@ -53,6 +55,12 @@ export default function Home({ products }: HomeProps) {
   function handleAddToCart(e: MouseEvent<HTMLButtonElement>, product: IProduct) {
     e.preventDefault()
     addToCart(product)
+    toggleShowCart()
+  }
+
+  function toggleShowCart() {
+    setShowAddToCart(true)
+    setTimeout(() => setShowAddToCart(false), 2000)
   }
 
   useEffect(() => {
@@ -67,6 +75,7 @@ export default function Home({ products }: HomeProps) {
       <Head>
         <title>Home | Ignite Shop</title>
       </Head>
+      <AddedToCartPopUp className={`${showAddToCart ? 'show' : ''}`} />
 
       {
         isLoading ? (
