@@ -6,10 +6,12 @@ export const Overlay = styled(Dialog.Overlay, {
   width: '100vw',
   inset: 0,
   position: 'fixed',
-  background: 'rgba(0, 0, 0, 0.75)'
+  background: 'rgba(0, 0, 0, 0.75)',
+  zIndex: 101,
 })
 
 export const Content = styled(Dialog.Content, {
+  zIndex: 102,
   position: 'fixed',
   right: 0,
   top: 0,

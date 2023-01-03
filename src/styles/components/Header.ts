@@ -12,5 +12,14 @@ export const HeaderContainer = styled('header', {
 
   button: {
     marginLeft: 'auto'
+  },
+
+  '&.scroll': {
+    zIndex: 100,
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    paddingInline: 16,
+    backgroundColor: '$gray900'
   }
 })

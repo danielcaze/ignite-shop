@@ -9,6 +9,10 @@ export const Container = styled('div', {
   overflow: 'hidden',
   paddingInline: '1rem',
 
+  '&.scroll': {
+    marginTop: 120
+  },
+
   '@tablet': {
     justifyContent: 'flex-start',
   }
