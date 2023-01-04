@@ -5,6 +5,7 @@ export const ProductContaienr = styled('main', {
   gridTemplateColumns: '1fr 1fr',
   alignItems: 'stretch',
   gap: '4rem',
+  paddingBottom: '2.5rem',
 
   maxWidth: 1180,
   marginInline: 'auto',

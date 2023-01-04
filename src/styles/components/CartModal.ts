@@ -185,7 +185,5 @@ export const ProductWrapper = styled('div', {
         cursor: 'not-allowed'
       }
     },
-
-
   }
 })

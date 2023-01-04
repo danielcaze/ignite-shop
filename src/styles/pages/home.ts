@@ -10,6 +10,8 @@ export const HomeContainer = styled('main', {
   marginLeft: 'auto',
   minHeight: 656,
 
+  paddingBottom: '2.5rem',
+
   '& > button': {
     position: 'absolute',
     color: '$white',

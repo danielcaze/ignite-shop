@@ -14,12 +14,14 @@ export const HeaderContainer = styled('header', {
     marginLeft: 'auto'
   },
 
-  '&.scroll': {
-    zIndex: 100,
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    paddingInline: 16,
-    backgroundColor: '$gray900'
+  '@tablet': {
+    '&.scroll': {
+      zIndex: 100,
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: '$gray900'
+    }
   }
 })
